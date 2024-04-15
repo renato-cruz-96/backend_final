@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .movie-image {
+        height: 250px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: white;
+      }
+
+      .movie-trailer {
+        height: 250px;
+        position: relative;
+      }
+
+      .movie-trailer-iframe {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .movie-card {
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="mb-4">Movies</h2>
+      <div id="movies" class="row"></div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      async function fetchMovies() {
+        const response = await fetch("http://localhost:3333/api/movies");
+        const movies = await response.json();
+        const moviesContainer = document.getElementById("movies");
+        moviesContainer.innerHTML = "";
+        movies.forEach((movie) => {
+          const movieCard = `<div class="col-md-4 col-sm-12">
+            <div class="card movie-card">
+              <div class="movie-image" style="background-image: url(http://localhost:3333/${
+                movie.image
+              })"></div>
+              <div class="card-body">
+                <h5>${movie.title}</h5>
+                <p>${movie.releaseDate}</p>
+                <p>Genres: ${movie.genres}</p>
+              </div>
+              <div class="movie-trailer">
+                <iframe class="movie-trailer-iframe" width="560" height="315" src=${
+                  `https://www.youtube.com/embed/` + movie.trailer
+                } title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>`;
+          moviesContainer.innerHTML += movieCard;
+        });
+      }
+      fetchMovies();
+    </script>
+  </body>
+</html>

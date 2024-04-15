@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Movie</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="mb-4">Create Movie</h2>
+      <form id="createMovieForm">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" required />
+        </div>
+        <div class="form-group">
+          <label for="date">Release Date</label>
+          <input type="date" class="form-control" id="date" required />
+        </div>
+        <div class="form-group">
+          <label for="genres">Genres</label>
+          <sub>
+            (You can enter multiple genders with each separated by comma)
+          </sub>
+          <input
+            type="text"
+            class="form-control"
+            id="genres"
+            multiple
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="trailer">Trailer Link</label>
+          <sub>
+            (Only enter the part after 'v='. Example:
+            https://www.youtube.com/watch?v=<span style="font-weight: bold"
+              >VyHV0BRtdxo</span
+            >)
+          </sub>
+          <input type="text" class="form-control" id="trailer" required />
+        </div>
+        <div class="form-group">
+          <label for="image">Poster</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="image"
+            accept="image/*"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Create Movie</button>
+      </form>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document
+        .getElementById("createMovieForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const title = document.getElementById("title").value;
+          const releaseDate = document.getElementById("date").value;
+          const genres = document.getElementById("genres").value;
+          const trailer = document.getElementById("trailer").value;
+          const image = document.getElementById("image").files[0];
+
+          const formData = new FormData();
+
+          formData.append("title", title);
+          formData.append("releaseDate", releaseDate);
+          formData.append("genres", genres);
+          formData.append("trailer", trailer);
+          formData.append("image", image);
+
+          const response = await fetch("http://localhost:3333/api/movies", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            alert("Movie created with success!");
+          }
+        });
+    </script>
+  </body>
+</html>

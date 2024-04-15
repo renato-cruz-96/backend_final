@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "releaseDate": "2001-11-04",
+    "genres": "Fantasy",
+    "trailer": "VyHV0BRtdxo",
+    "image": "9d41201c-2dd5-48fb-ba9e-4029d11fc4bf.jpeg"
+  },
+  {
+    "id": 2,
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "releaseDate": "2001-12-19",
+    "genres": "Fantasy",
+    "trailer": "V75dMMIW2B4",
+    "image": "432b9944-4fd8-49ec-be70-b21775570e49.jpeg"
+  }
+]
